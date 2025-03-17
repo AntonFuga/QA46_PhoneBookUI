@@ -1,31 +1,47 @@
 package com.phonebook.tests;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.BeforeMethod;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class CreateAccountTests extends TestBase{
 
     @Test
-    public void newUserRegistrationPisitiveTest(){
-        driver.findElement(By.cssSelector("[href='/login']")).click();
-        driver.findElement(By.name("email")).click();
-        driver.findElement(By.name("email")).clear();
-        driver.findElement(By.name("email")).sendKeys("");
+    public void newUserRegistrationPositiveTest(){
+        click(By.cssSelector("[href='/login']"));
 
-        driver.findElement(By.name("password")).click();
-        driver.findElement(By.name("password")).clear();
-        driver.findElement(By.name("password")).sendKeys("Bonjov321");
+        type(By.name("email"), "antonfuga1991@gmail.com");
+
+        type(By.name("password"), "Anton0807!$");
         //click on Registration
-        driver.findElement(By.name("registration")).click();
+        click(By.name("registration"));
+
+        //verify SingOut button is displayed
+        Assert.assertTrue(isElementPresent(By.xpath("//button[.='Sign Out']")));
 
     }
+
+    @Test
+    public void existedUserRegistrationNegativeTest(){
+
+        click(By.cssSelector("[href='/login']"));
+        type(By.name("email"), "antonfuga1991@gmail.com");
+
+        type(By.name("password"), "Anton0807!$");
+        //click on Registration
+        click(By.name("registration"));
+
+        //verify Alert is displayed
+
+        Assert.assertTrue(isAlertDisplayed());
+
+    }
+
+
     //click on login link
     //enter email
     // enter pass
     // click registration button
-    //verify SingOut button is displayed
+
 
 }
